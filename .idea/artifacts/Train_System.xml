@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Train_System">
+    <output-path>$PROJECT_DIR$/out/artifacts/Train_System</output-path>
+    <root id="root" />
+  </artifact>
+</component>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+        body{
+            background: white;
+        }
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .main {
+            margin: 0 auto;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 15px;
+            width: 350px;
+            height: 350px;
+            background: whitesmoke;
+            /*以下css用于让登录表单垂直居中在界面,可删除*/
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -175px;
+            margin-left: -175px;
+        }
+
+        .title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .title span {
+            font-size: 18px;
+            color: #353f42;
+        }
+
+        .title-msg {
+            width: 100%;
+            height: 64px;
+            line-height: 64px;
+        }
+
+        .title:hover{
+            cursor: default	;
+        }
+
+        .title-msg:hover{
+            cursor: default	;
+        }
+
+        .title-msg span {
+            font-size: 12px;
+            color: #707472;
+        }
+
+        .input-content {
+            width: 100%;
+            height: 120px;
+        }
+
+        .input-content input {
+            width: 330px;
+            height: 40px;
+            border: 1px solid #dad9d6;
+            background: #ffffff;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .enter-btn {
+            width: 350px;
+            height: 40px;
+            color: #FFFFFF;
+            background: #4E6EF2;
+            line-height: 40px;
+            text-align: center;
+            border: 0px;
+        }
+
+        .foor{
+            width: 100%;
+            height: auto;
+            color: #9b9c98;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .enter-btn:hover {
+            cursor:pointer;
+            background:#4662D9
+        }
+
+        .foor div:hover {
+            cursor:pointer;
+            color: #484847;
+            font-weight: 600;
+        }
+
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+
+    </style>
+    <title>Sign In</title>
+</head>
+<body>
+<div class="main">
+    <div class="title">
+        <span>Sign In</span>
+    </div>
+    <div class="title-msg">
+        <span>Input your account!</span>
+    </div>
+    <form action="/zhm/Manager/Main" class="login-form" method="post" >
+        <div class="input-content">
+            <div>
+                <input type="text" placeholder="username" name="Username"/>
+            </div>
+            <div style="margin-top: 16px">
+                <input type="password" placeholder="password" name="Passwd"/>
+            </div>
+        </div>
+        <div style="text-align: center">
+            <button type="submit" class="enter-btn" >Log in</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

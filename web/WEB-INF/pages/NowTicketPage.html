@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>All Ticket</title>
+    <script type="text/javascript" src="/zhm/js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="/zhm/css/bootstrap.min.css">
+    <script>
+        const url = "/zhm/User/GetAllTicket";
+        $.getJSON(url, null, function (data){
+            for(var i in data){
+                var newtr = document.createElement("tr");
+                var id = document.createElement("td");
+                var name = document.createElement("td");
+                var begp = document.createElement("td");
+                var endp = document.createElement("td");
+                var begt = document.createElement("td");
+                var endt = document.createElement("td");
+                var price = document.createElement("td");
+                var seat = document.createElement("td");
+                id.innerHTML = "<input type=\"radio\" name=\"ticketID\" value='" + data[i].ticketID + "' />";
+                name.innerText = data[i].TrainName;
+                begp.innerText = data[i].BeginPos;
+                begt.innerText = data[i].BeginTime;
+                endp.innerText = data[i].EndPos;
+                endt.innerText = data[i].EndTime;
+                price.innerText = data[i].price;
+                seat.innerText = data[i].SeatID;
+                newtr.append(id);newtr.append(name);newtr.append(begp);newtr.append(begt);
+                newtr.append(endp);newtr.append(endt);newtr.append(seat);newtr.append(price);
+                $("#AllTicket").append(newtr);
+            }
+        });
+
+        function getTicket() {
+            var obj = document.getElementsByTagName("input");
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i].checked) {
+                    return obj[i].value;
+                }
+            }
+        }
+
+        function printTicket(){
+            var ticketID = getTicket();
+            const url = "/zhm/User/printTicket";
+            const params = {"ticketID": ticketID};
+            $.getJSON(url, params, function (data){
+                var flag = data.flag;
+                if(flag){
+                    alert("Success");
+                }else{
+                    alert("Fail, Please Check The Ticket");
+                }
+            });
+        }
+
+        function cancelTicket(){
+            var ticketID = getTicket();
+            const url = "/zhm/User/cancelTicket";
+            const params = {"ticketID": ticketID};
+            $.getJSON(url, params, function (data){
+                var flag = data.flag;
+                if(flag){
+                    alert("Success");
+                }else{
+                    alert("Fail, Please Check The Ticket");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<form>
+<div class="container" style="margin-bottom: 80px">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>All Ticket</th>
+            <th>Train</th>
+            <th>BeginPos</th>
+            <th>BeginTime</th>
+            <th>EndPos</th>
+            <th>EndTime</th>
+            <th>Seat</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody id="AllTicket">
+
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <div style="margin: auto" class="text-center">
+        <a href="#" onclick="printTicket()"><span>Print Ticket</span></a>
+        |
+        <a href="#" onclick="cancelTicket()"><span>Cancel Ticket</span></a>
+    </div>
+</div>
+</form>
+</body>
+</html>

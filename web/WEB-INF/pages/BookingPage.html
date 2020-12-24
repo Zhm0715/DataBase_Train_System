@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Ticket</title>
+    <script type="text/javascript" src="/zhm/js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="/zhm/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function myclick(){
+            var time = $("#time").val();
+            var source = $("#source").val();
+            var dest = $("#dest").val();
+            var url = "/zhm/User/getTrainByBooking";
+            var parms = {"time": time, "sour": source, "dest": dest};
+            $("#ShowInfo").empty();
+            $.getJSON(url, parms, function (data){
+               // 得到json格式数据
+               for(var i in data){
+                   var newtr = document.createElement("tr");
+                   var TrainID = document.createElement("td")
+                   var TrainName = document.createElement("td");
+                   var BeginTime = document.createElement("td");
+                   var EndTime = document.createElement("td");
+                   var Price = document.createElement("td");
+                   var TicketRemain = document.createElement("td");
+                   // 赋值过程
+                   TrainID.innerHTML = "<input type=\"radio\" name=\"TicketID\" value='" + data[i].TrainID + "' />";
+                   TrainName.innerText = data[i].TrainName;
+                   BeginTime.innerText = data[i].BeginTime;
+                   EndTime.innerText = data[i].EndTime;
+                   Price.innerText = data[i].price;
+                   TicketRemain.innerText = data[i].TRemian;
+                   newtr.append(TrainID);
+                   newtr.append(TrainName);
+                   newtr.append(BeginTime);
+                   newtr.append(EndTime);
+                   newtr.append(Price);
+                   newtr.append(TicketRemain);
+                   $("#ShowInfo").append(newtr);
+               }
+            });
+        }
+
+        function Booking(){
+            var obj = document.getElementsByTagName("input");
+            for(var i=0; i<obj.length; i ++){
+                if(obj[i].checked){
+                    var time = $("#time").val();
+                    var source = $("#source").val();
+                    var dest = $("#dest").val();
+                    const url = "/zhm/User/Booking";
+                    const params = {"time": time, "TrainID": obj[i].value, "sour": source, "dest": dest};
+                    $.getJSON(url, params, function (data){
+                        var flag = data.flag;
+                        if(flag){
+                            alert("Success");
+                        }else{
+                            alert("Fail, Please Check The Remain Ticket");
+                        }
+                    });
+                    break;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row row-centered">
+        <form role="form" style="margin: 0 auto">
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="date" class="form-control" id="time">
+            </div>
+            <div class="form-group">
+                <label for="dest">Source</label>
+                <input type="text" class="form-control" id="source" placeholder="please enter Source">
+            </div>
+            <div class="form-group">
+                <label for="dest">Dest</label>
+                <input type="text" class="form-control" id="dest" placeholder="please enter destination">
+            </div>
+            <div style="text-align:center">
+                <button type="button" class="btn btn waves-effect waves-light" onclick="myclick()">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<br />
+<div class="container" style="margin-bottom: 80px">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ALL Ticket</th>
+            <th>TrainID</th>
+            <th>BeginTime</th>
+            <th>EndTime</th>
+            <th>Price</th>
+            <th>Ticket Remain</th>
+        </tr>
+        </thead>
+        <tbody id="ShowInfo">
+        </tbody>
+    </table>
+    <div style="margin: auto" class="text-center">
+        <a href="#" onclick="Booking()"><span>Booking</span></a>
+    </div>
+</div>
+</body>
+</html>

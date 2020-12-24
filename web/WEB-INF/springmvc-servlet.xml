@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!--    <context:component-scan base-package="zhm.core.Controller"/>-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <!--前缀-->
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <!--后缀-->
+<!--        <property name="suffix" value=".html"/>-->
+    </bean>
+    <context:component-scan base-package="zhm.Train.Controller" />
+    <!--    放行所有静态资源-->
+    <mvc:default-servlet-handler/>
+<!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+<!--        <property name="prefix" value="/WEB-INF/pages/" />-->
+<!--        <property name="suffix" value=".html" />-->
+<!--    </bean>-->
+
+    <!--    静态资源配置 /statics代表web下的static文件-->
+    <!-- 允许/statics/js目录下的所有文件可见 -->
+    <mvc:resources location="/statics/js/" mapping="/js/**" />
+    <mvc:resources location="/statics/css/" mapping="/css/**" />
+    <mvc:resources location="/statics/img/" mapping="/img/**" />
+    <mvc:annotation-driven>
+        <!-- 消息转换器 -->
+<!--        <mvc:message-converters register-defaults="true">-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+<!--        <mvc:interceptors>-->
+<!--            <mvc:interceptor>-->
+<!--                &lt;!&ndash; 先匹配所有路径，然后排除不需要检查的路径 &ndash;&gt;-->
+<!--                <mvc:mapping path="/zhm/AirportMain/Manager"/>-->
+<!--                <mvc:mapping path="/zhm/AirportMain/Manager/AddBaggage"/>-->
+<!--                <mvc:mapping path="/zhm/AirportMain/Manager/AddFlight"/>-->
+
+                <!-- 与登录相关的请求 -->
+    <!--            <mvc:exclude-mapping path="/*.jsp"/>-->
+    <!--            <mvc:exclude-mapping path="/student/login.action"/>-->
+    <!--            <mvc:exclude-mapping path="/student/register.action"/>-->
+
+    <!--            &lt;!&ndash; 以下是静态资源 &ndash;&gt;-->
+    <!--            <mvc:exclude-mapping path="/img/**" />-->
+    <!--            <mvc:exclude-mapping path="/css/**" />-->
+    <!--            <mvc:exclude-mapping path="/js/**" />-->
+
+    <!--            &lt;!&ndash; 用户是否已经登录的检查bean &ndash;&gt;-->
+    <!--            <bean class="zhm.core.Interceptor.LoginInterceptor"/>-->
+    <!--        </mvc:interceptor>-->
+    <!--    </mvc:interceptors>-->
+</beans>
